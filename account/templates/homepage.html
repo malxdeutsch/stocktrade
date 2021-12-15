@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+<div class="row">
+</div>
+<div class="row row-cols-3 row-cols-md-4 g-4">
+    {% for sell in sell_list %}
+    <div class="col">
+        <div class="card mx-1 card text-white bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ sell.stock.name}}</h5>
+                <h5 class="card-title">{{ sell.stock.price}}</h5>
+
+                <h6 class="card-subtitle mb-2 text-white"> Offered by : {% if user == sell.profile.user %} You
+                    {% else %}
+                    {{ sell.profile.user }}
+                    {% endif %} </h6>
+                <p class="card-text"></p>
+                <a href="{% url 'sell' sell.pk %}" class="card-link">Sale Details</a>
+                {% if sell.profile.user != user %}
+                <a href="{% url 'offer' sell.pk %}" class="card-link">Buy</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<h1>Sale Details</h1>
+
+<div class="card mx-1 card text-white bg-secondary mb-3" style="width: 18rem;">
+    <div class="card-body card-subtitle mb-2 text-white">
+        <ul>
+            <li> {{sell.stock}}
+            </li>
+            <li> {{sell.profile}}
+            </li>
+            <li> {{sell.time}}
+            </li>
+            <li> {{sell.is_completed}}
+            </li>
+        </ul>
+        <a href="{% url 'profile' sell.profile.id %}" class="card-link">Seller's Profile</a>
+    </div>
+</div>
+
+<div class="row">
+    {% for buy in sell.viable_offers %}
+    <div class="card mx-1 card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-body card-subtitle mb-2 text-white">
+            <h5 class="card-title"> Offer #{{forloop.counter}}</h5>
+            <ul>
+
+                <li> {{buy.stock}}
+                </li>
+                <li> {{buy.profile}}
+                </li>
+                <li> {{buy.time}}
+                </li>
+            </ul>
+            <a href="{% url 'profile' sell.profile.id %}" class="card-link">Poster's link</a>
+
+            {% if sell.profile.user == user %}
+            <div class="row">
+                <a href="{% url 'handleoffer' buy.id 'accept' %}" class="btn btn-success">Accept</a>
+                <a href="{% url 'handleoffer' buy.id 'reject' %}" class="btn btn-danger">Reject</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %}
+User | Profile
+{% endblock %}
+
+{% block css %}
+<link href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<! --- profile page taken from https://www.bootdey.com/snippets/view/profile-edit-data-and-skills#html --->
+
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <div class="main-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    width="110">
+                                    <div class="mt-3">
+                                        <p class="text-secondary mb-1">{{ profile.user.name}}</p>
+                                        <a class="btn btn-primary">Follow</a>
+                                        <a class="btn btn-outline-primary">Message</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
