@@ -5,6 +5,35 @@ Homepage
 
 {% block content %}
 <div class="row">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change</th>
+                <th scope="col">Percent Change</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Market Cap</th>
+                <th scope="col">PE Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gainer in gainers %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{gainer.Symbol}}</td>
+                <td>{{gainer.Name}}</td>
+                <td>{{gainer.Price}}</td>
+                <td>{{gainer.Change}}</td>
+                <td>{{gainer.Volume}}</td>
+                <td>{{gainer.Market_Cap}}</td>
+                <td>{{gainer.PE_ratio}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 <div class="row row-cols-3 row-cols-md-4 g-4">
     {% for sell in sell_list %}

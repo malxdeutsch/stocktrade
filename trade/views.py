@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .models import Stock, Sell, Buy
 from django.contrib import messages
 from .forms import BuyForm
+from .apiinteraction import high_gained_earnings
 
 # Create your views here.
 
@@ -14,6 +15,9 @@ class AvailableSalesListView(ListView):
     model = Sell
     template_name = 'homepage.html'
     queryset = Sell.objects.filter(is_completed=False)
+    extra_context= {
+        'gainers': high_gained_earnings()
+    }
 
 
 class SaleDetailView(DetailView):
@@ -90,3 +94,4 @@ class HandleOfferView(RedirectView):
 
         kwargs.clear()
         return super().get_redirect_url(*args, **kwargs)
+

@@ -32,7 +32,7 @@
             <h5 class="card-title card-subtitle mb-2 text-white">{{stock.name}}</h5>
             <h6 class="card-subtitle mb-2 text-white">{{stock.price}}</h6>
             {% if user.profile == profile %}
-            <a href="{% url 'newsale' stock.id %}" class=" btn btn-success">Sell</a>
+            <a href="{% url 'newsale' stock.id %}" class=" btn btn-dark">Sell</a>
             {% endif %}
         </div>
     </div>
@@ -47,7 +47,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ buy.stock.name}}</h5>
             <h5 class="card-title">{{ buy.stock.price}}</h5>
-            <div class="row">
+            <div>
                 <a href="{% url 'handleoffer' buy.id 'accept' %}" class="btn btn-success">Accept</a>
                 <a href="{% url 'handleoffer' buy.id 'reject' %}" class="btn btn-danger">Reject</a>
             </div>

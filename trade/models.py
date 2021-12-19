@@ -39,12 +39,13 @@ class Buy (models.Model):
             self.profile.portfolio.add(self.sell.stock)
             self.sell.profile.portfolio.add(self.stock)
             self.profile.portfolio.remove(self.stock)
-            self.sell.profile.money -= float(self.sell.stock.price)
-            self.profile.money += float(self.sell.stock.price)
+            if not self.stock:
+                self.sell.profile.money -= float(self.sell.stock.price)
+                self.profile.money += float(self.sell.stock.price)
+                self.sell.profile.save()
+                self.profile.save()
             self.sell.is_completed = True
             self.sell.save()
-            self.sell.profile.save()
-            self.profile.save()
             return True
         return False
 
