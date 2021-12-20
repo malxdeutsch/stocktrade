@@ -5,6 +5,7 @@ Homepage
 
 {% block content %}
 <div class="row">
+    <h3 class="text-center">Top Gainers Today</h3>
     <table class="table table-dark table-striped">
         <thead>
             <tr>
@@ -15,6 +16,7 @@ Homepage
                 <th scope="col">Change</th>
                 <th scope="col">Percent Change</th>
                 <th scope="col">Volume</th>
+                <th scope="col"> Average Volume</th>
                 <th scope="col">Market Cap</th>
                 <th scope="col">PE Ratio</th>
             </tr>
@@ -23,13 +25,9 @@ Homepage
             {% for gainer in gainers %}
             <tr>
                 <th scope="row">1</th>
-                <td>{{gainer.Symbol}}</td>
-                <td>{{gainer.Name}}</td>
-                <td>{{gainer.Price}}</td>
-                <td>{{gainer.Change}}</td>
-                <td>{{gainer.Volume}}</td>
-                <td>{{gainer.Market_Cap}}</td>
-                <td>{{gainer.PE_ratio}}</td>
+                {% for value in gainer.values %}
+                <td>{{value}}</td>
+                {% endfor %}
             </tr>
             {% endfor %}
         </tbody>

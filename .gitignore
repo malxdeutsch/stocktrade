@@ -1,4 +1,2 @@
 env/
-venv/
-env2/
 local_settings.py
