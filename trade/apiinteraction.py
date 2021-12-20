@@ -1,6 +1,4 @@
 import yahoo_fin.stock_info as si
-import importlib
-
 
 def high_gained_earnings():
     tickers = si.tickers_sp500()
@@ -12,4 +10,4 @@ def high_gained_earnings():
     return gainers_from_in_tickers
 gainers = high_gained_earnings()
 
-#  importlib.reload(si)
+
