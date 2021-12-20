@@ -140,8 +140,7 @@ try:
     from .local_settings import *
 
 except ImportError:
-    raise Exception(
-        'A local_settings file MUST exist in order to use this project')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     
 LOGIN_REDIRECT_URL = 'homepage'
 
