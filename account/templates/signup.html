@@ -9,9 +9,7 @@ User | Signup
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% if user.profile.money ==0 %}
-    <ul>How much money would you like to put into your stock profile?</ul>
-    {% endif %}
+
     {% bootstrap_button "Save" button_type="submit" button_class="btn-success" %}
 </form>
 {% endblock %}
