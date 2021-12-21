@@ -6,6 +6,12 @@ User | Signup
 
 {% block content %}
 <h1>Welcome to MI Stock Trade App</h1>
+<h3>This is a trading simulation game where you
+    - put money into the game
+    - receive 10 complimentary stocks upon trading
+    - trade or but other users' stocks
+</h3>
+<h3>Enjoy!</h3>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
