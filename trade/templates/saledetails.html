@@ -6,16 +6,16 @@
 {% block content %}
 <h1>Sale Details</h1>
 
-<div class="card mx-1 card text-white bg-secondary mb-3" style="width: 18rem;">
+<div class="card mx-1 card text-white bg-secondary mb-3 card border-light" style="width: 18rem;">
     <div class="card-body card-subtitle mb-2 text-white">
         <ul>
-            <li> {{sell.stock}}
+            <li> Stock Name: {{sell.stock}}
             </li>
-            <li> {{sell.profile}}
+            <li> Profile Username: {{sell.profile.username}}
             </li>
-            <li> {{sell.time}}
+            <li> Time of Sale: {{sell.time}}
             </li>
-            <li> {{sell.is_completed}}
+            <li> Has the Sale Been Completed: {{sell.is_completed}}
             </li>
         </ul>
         <a href="{% url 'profile' sell.profile.id %}" class="card-link">Seller's Profile</a>
@@ -24,16 +24,16 @@
 
 <div class="row">
     {% for buy in sell.viable_offers %}
-    <div class="card mx-1 card text-white bg-secondary mb-3" style="width: 18rem;">
+    <div class="card mx-1 card text-white bg-secondary mb-3 card border-light" style="width: 18rem;">
         <div class="card-body card-subtitle mb-2 text-white">
             <h5 class="card-title"> Offer #{{forloop.counter}}</h5>
             <ul>
 
-                <li> {{buy.stock}}
+                <li> Stock Name: {{buy.stock}}
                 </li>
-                <li> {{buy.profile}}
+                <li> Profile Username: {{buy.profile}}
                 </li>
-                <li> {{buy.time}}
+                <li> Price: {{buy.time}}
                 </li>
             </ul>
             <a href="{% url 'profile' sell.profile.id %}" class="card-link">Poster's link</a>
