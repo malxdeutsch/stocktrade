@@ -5,11 +5,11 @@ User | Signup
 {% endblock %}
 
 {% block content %}
-<h1>Welcome to our signup page</h1>
+<h1>Welcome to MI Stock Trade App</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-
+    <ul>How much money would you like to put into your stock profile?</ul>
     {% bootstrap_button "Save" button_type="submit" button_class="btn-success" %}
 </form>
 {% endblock %}
