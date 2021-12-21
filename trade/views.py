@@ -15,10 +15,12 @@ class AvailableSalesListView(ListView):
     model = Sell
     template_name = 'homepage.html'
     queryset = Sell.objects.filter(is_completed=False)
-    extra_context= {
-        'gainers': high_gained_earnings()
-    }
-
+    
+    def get_context_data(self, **kwargs):
+        context=  super().get_context_data(**kwargs)
+        context['gainers'] = high_gained_earnings()
+        Stock.get_stocks()
+        return context
 
 class SaleDetailView(DetailView):
     model = Sell

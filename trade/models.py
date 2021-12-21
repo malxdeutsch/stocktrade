@@ -1,20 +1,34 @@
 from django.db import models
+import yahoo_fin.stock_info as si
+from datetime import timedelta
+from django.utils import timezone
 
 # Create your models here.
 
 class Stock(models.Model):
     name = models.CharField(max_length=200)
     price = models.CharField(max_length=200)
-
-    def rarity(self):
-        if self.position == 'P':
-            return 5
-        else:
-            return 0
+    last_updated = models.DateTimeField(auto_now = True)
 
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_stocks(cls):
+        if cls.objects.all().exists():
+            if timezone.now() - cls.objects.first().last_updated < timedelta(minutes= 20):
+                return
+        tickers = si.tickers_sp500()
+        for ticker in tickers:
+            data = si.get_live_price(ticker)
+            stock, created = cls.objects.get_or_create(name = ticker, defaults = {'price': data})
+            if not created:
+                print(f'updated old stock {stock.name}')
+                stock.price = data
+                stock.save()
+            else:
+                print(f'created new stock {stock.name}')
+        return cls.objects.all()
 
 class Sell (models.Model):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
@@ -27,7 +41,7 @@ class Sell (models.Model):
 
 
 class Buy (models.Model):
-    stock = models.ForeignKey(Stock, on_delete=models.CASCADE, null=True, blank=True)
+    stock = models.ManyToManyField(Stock, blank=True)
     profile = models.ForeignKey('account.Profile', on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
     sell = models.ForeignKey(Sell, on_delete=models.CASCADE)
