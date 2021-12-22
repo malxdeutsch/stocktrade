@@ -42,7 +42,6 @@ Homepage
 <h3 class="text-center">Available Sales</h3>
 <div class="row row-cols-3 row-cols-md-4 g-4">
     {% for sell in sell_list %}
-    {% if sell.is_completed == False %}
     <div class="col">
         <div class="card mx-1 card text-white bg-secondary mb-3 card border-light">
             <div class="card-body">
@@ -61,7 +60,6 @@ Homepage
             </div>
         </div>
     </div>
-    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}

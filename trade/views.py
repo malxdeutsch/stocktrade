@@ -64,6 +64,8 @@ class OfferCreateView(CreateView):
         buy.profile = self.request.user.profile
         buy.sell_id = self.kwargs['sell_pk']
         buy.save()
+        if buy.is_purchase:
+            buy.accept()
         return super().form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):

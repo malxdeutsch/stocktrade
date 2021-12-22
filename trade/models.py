@@ -47,13 +47,18 @@ class Buy (models.Model):
     sell = models.ForeignKey(Sell, on_delete=models.CASCADE)
     is_rejected = models.BooleanField(default=False)
 
+    @property
+    def is_purchase(self):
+        return not self.stock.all().exists()
+
+
     def accept(self):
         if not self.sell.is_completed:
             self.sell.profile.portfolio.remove(self.sell.stock)
             self.profile.portfolio.add(self.sell.stock)
-            self.sell.profile.portfolio.add(self.stock)
-            self.profile.portfolio.remove(self.stock)
-            if not self.stock:
+            self.sell.profile.portfolio.add(*self.stock.all())
+            self.profile.portfolio.remove(*self.stock.all())
+            if self.is_purchase:
                 self.sell.profile.money -= float(self.sell.stock.price)
                 self.profile.money += float(self.sell.stock.price)
                 self.sell.profile.save()
