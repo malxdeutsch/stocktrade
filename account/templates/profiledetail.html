@@ -45,12 +45,14 @@
     {% for buy in sale.buy_set.all %}
     <div class="card mx-1 card text-white bg-secondary mb-3 card border-light">
         <div class="card-body">
-            {% if buy.stock.name == 'None' %}
+            {% if not buy.stock.all.exists %}
             <h5 class="card-title">Offer Made With Money</h5>
-            <h5 class="card-title">Price:{{ buy.stock.price}}</h5>
+            <h5 class="card-title">Price:{{ buy.sell.stock.price}}</h5>
             {% else %}
-            <h5 class="card-title">Stock:{{ buy.stock.name}}</h5>
-            <h5 class="card-title">Price:{{ buy.stock.price}}</h5>
+            {% for s in buy.stock.all %}
+            <h5 class="card-title">Stock:{{ s.name}}</h5>
+            <h5 class="card-title">Price:{{ s.price}}</h5>
+            {% endfor %}
             <div>
                 <a href="{% url 'handleoffer' buy.id 'accept' %}" class="btn btn-success">Accept</a>
                 <a href="{% url 'handleoffer' buy.id 'reject' %}" class="btn btn-danger">Reject</a>
