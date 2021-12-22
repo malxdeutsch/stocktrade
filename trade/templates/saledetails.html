@@ -9,7 +9,7 @@
 <div class="card mx-1 card text-white bg-secondary mb-3 card border-light" style="width: 25rem;">
     <div class="card-body card-subtitle mb-2 text-white">
         <ul>
-            <li> Stock Name: {{sell.stock}}
+            <li> Stock Name: {{sell.stock.name}}
             </li>
             <li> Profile Username: {{sell.profile.user.username}}
             </li>
@@ -29,7 +29,7 @@
             <h5 class="card-title"> Offer #{{forloop.counter}}</h5>
             <ul>
 
-                <li> Stock Name: {{buy.stock}}
+                <li> Stock Name: {{buy.stock.name}}
                 </li>
                 <li> Profile Username: {{buy.profile.user.username}}
                 </li>
