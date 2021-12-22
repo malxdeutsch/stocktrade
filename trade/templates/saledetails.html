@@ -28,7 +28,10 @@
         <div class="card-body card-subtitle mb-2 text-white">
             <h5 class="card-title"> Offer #{{forloop.counter}}</h5>
             <ul>
-
+                {if buy.stock.name == None}
+                <li> Paid with Money
+                </li>
+                {% endif %}
                 <li> Stock Name: {{buy.stock.name}}
                 </li>
                 <li> Profile Username: {{buy.profile.user.username}}
