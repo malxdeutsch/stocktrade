@@ -4,15 +4,15 @@ Homepage
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="text-center">
     <form method="post">
         <h2>Trade for this stock:</h2>
         {% csrf_token %}
         {{ form }}
 </div>
-<div>
+<div class="text-center">
 
-    <h2>Pay for this stock:</h2>
+    <h2 class="text-center">Pay for this stock:</h2>
     <input type="checkbox" id="money" name="money">
     <label for="money">Money</label>
 
