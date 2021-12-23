@@ -41,7 +41,7 @@ class Sell (models.Model):
 
 
 class Buy (models.Model):
-    stock = models.ManyToManyField(Stock, blank=True)
+    stock = models.ManyToManyField(Stock, null=True, blank=True)
     profile = models.ForeignKey('account.Profile', on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
     sell = models.ForeignKey(Sell, on_delete=models.CASCADE)
@@ -49,6 +49,7 @@ class Buy (models.Model):
 
     @property
     def is_purchase(self):
+        print(self.stock.all())
         return not self.stock.all().exists()
 
 
@@ -59,10 +60,13 @@ class Buy (models.Model):
             self.sell.profile.portfolio.add(*self.stock.all())
             self.profile.portfolio.remove(*self.stock.all())
             if self.is_purchase:
-                self.sell.profile.money -= float(self.sell.stock.price)
-                self.profile.money += float(self.sell.stock.price)
-                self.sell.profile.save()
-                self.profile.save()
+                if self.profile.money - float(self.sell.stock.price) >0:
+                    self.sell.profile.money += float(self.sell.stock.price)
+                    self.profile.money -= float(self.sell.stock.price)
+                    self.sell.profile.save()
+                    self.profile.save()
+                else:
+                    print('You don\'t have enough money to buy')
             self.sell.is_completed = True
             self.sell.save()
             return True

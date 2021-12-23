@@ -52,6 +52,8 @@ class OfferCreateView(CreateView):
     template_name = 'offerpurchase.html'
 
     def get_success_url(self):
+        if self.object.is_purchase:
+            return reverse_lazy('myprofile')
         return reverse_lazy('sell', kwargs={'pk': self.object.sell.id})
 
     def get_form_kwargs(self):
@@ -64,8 +66,13 @@ class OfferCreateView(CreateView):
         buy.profile = self.request.user.profile
         buy.sell_id = self.kwargs['sell_pk']
         buy.save()
+        form.save_m2m()
         if buy.is_purchase:
-            buy.accept()
+            if buy.profile.money - float(buy.sell.stock.price) >= 0:
+                buy.accept()
+            else:
+                messages.warning(
+                    self.request, 'You don\'t have enough money for this purchase.')  
         return super().form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):

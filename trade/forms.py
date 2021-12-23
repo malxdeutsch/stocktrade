@@ -8,7 +8,6 @@ class BuyForm(forms.ModelForm):
         fields = ['stock']
 
 
-
     def __init__(self, user, *args, **kwargs):
         super(BuyForm, self).__init__(*args, **kwargs)
         self.fields['stock'].queryset= user.profile.portfolio.all()
